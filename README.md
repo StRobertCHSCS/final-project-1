@@ -15,7 +15,11 @@ The controls are the same as in normal pong, but there are different modes that 
 There will be a square of fire, whenever a ball hits a side of the square, it will move faster.
 ###### DON'T TOUCH THE CAT!!!
 A cat will be moving up and down the middle of the screen. When you hit the cat, you will lose a life. You start off with three lives. Once you lose all three lives, YOU LOSE. If the ball moves off the screen you still lose instantly.
-###### BUMPERS!!!
-Five 
+###### BIG BALLS, SMALL PADDLES!!!
+The game will start with a big ball in the middle, the paddles will be much smaller. The speed of the ball will increase slightly. The players will have a harder time hitting it back at each other.
+###### SECRET WALL?!!!
+There will be an invisible wall, that won't be seen until the ball hits the wall. The wall will make the ball bounce back
+###### MULTIBALL!!!
+At the start of the game, two balls will appear instead of one. They will go in different directions. Use the secret of timing to win!
 ### Scoring
-When a 
+When a ball reaches 
