@@ -11,8 +11,8 @@ import random
 
 ###
 
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 700
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Bouncing Balls Example"
 
 def fire_mode():
@@ -111,7 +111,7 @@ class MyGame(arcade.Window):
         ball = make_ball()
 
         for rectangle in self.rectangle_list:
-            arcade.draw_rectangle_filled(rectangle.x, rectangle.y, rectangle.size,100,  rectangle.color)
+            arcade.draw_rectangle_filled(rectangle.x, rectangle.y, rectangle.size, 150,  rectangle.color)
 
 
 
