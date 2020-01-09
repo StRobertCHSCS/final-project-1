@@ -9,6 +9,7 @@ python -m arcade.examples.bouncing_balls
 import arcade
 import random
 
+###
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 700
