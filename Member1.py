@@ -33,7 +33,7 @@ class Ball:
         self.change_y = 0
         self.size = 0
         self.color = None
-class Rectangle:
+class Rectangle1:
     
     def __init__(self):
         self.x = 0 
@@ -43,20 +43,31 @@ class Rectangle:
         self.size = 0
         self.color = None
 
-def make_rectangle():
+class Rectangle2:
+    def __init__(self):
+        self.x = 0 
+        self.y = 0
+        self.change_x = 0 
+        self.change_y = 0
+        self.size = 0
+        self.color = None
     
-    rectangle = Rectangle()
+def make_rectangle1():
+    
+    rectangle1 = Rectangle1()
 
-    rectangle.size = 14
+    rectangle1.size = 14
 
-    rectangle.x = 10
-    rectangle.y = 350
+    rectangle1.x = 10
+    rectangle1.y = 350
 
-    rectangle.change_y = 5
+    rectangle1.change_y = 5
 
-    rectangle.color = arcade.color.WHITE
+    rectangle1.color = arcade.color.WHITE
 
-    return rectangle
+    return rectangle1
+
+    
 
 def make_ball():
 
@@ -88,9 +99,9 @@ class MyGame(arcade.Window):
         self.ball_list = []
         ball = make_ball()
         self.ball_list.append(ball)
-        self.rectangle_list = []
-        rectangle = make_rectangle()
-        self.rectangle_list.append(rectangle)
+        self.rectangle1_list = []
+        rectangle1 = make_rectangle1()
+        self.rectangle1_list.append(rectangle1)
 
     def on_draw(self):
         """
@@ -107,9 +118,9 @@ class MyGame(arcade.Window):
        
         ball = make_ball()
 
-        for rectangle in self.rectangle_list:
-            arcade.draw_rectangle_filled(rectangle.x, rectangle.y, rectangle.size, 150,  rectangle.color)
-            arcade.draw_rectangle_filled(rectangle.x, rectangle.y, rectangle.size, 150,  rectangle.color)
+        for rectangle1 in self.rectangle1_list:
+            arcade.draw_rectangle_filled(rectangle1.x, rectangle1.y, rectangle1.size, 150,  rectangle1.color)
+            #arcade.draw_rectangle_filled(rectangle1.x, rectangle1.y, rectangle1.size, 150,  rectangle1.color)
 
 
 
