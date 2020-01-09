@@ -1,10 +1,4 @@
-"""
-Bounce balls on the screen.
-Spawn a new ball for each mouse-click.
 
-If Python and Arcade are installed, this example can be run from the command line with:
-python -m arcade.examples.bouncing_balls
-"""
 
 import arcade
 import random
@@ -13,7 +7,7 @@ import random
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-SCREEN_TITLE = "Bouncing Balls Example"
+SCREEN_TITLE = "Retro Ping Pong"
 
 def fire_mode():
     pass
@@ -90,6 +84,7 @@ class MyGame(arcade.Window):
 
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+        
         self.ball_list = []
         ball = make_ball()
         self.ball_list.append(ball)
@@ -102,9 +97,11 @@ class MyGame(arcade.Window):
         Render the screen.
         """
 
+        
         # This command has to happen before we start drawing
         arcade.start_render()
-
+        texture = arcade.load_texture("Images/background.png")
+        arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
         for ball in self.ball_list:
             arcade.draw_circle_filled(ball.x, ball.y, ball.size, ball.color)
        
@@ -112,6 +109,8 @@ class MyGame(arcade.Window):
 
         for rectangle in self.rectangle_list:
             arcade.draw_rectangle_filled(rectangle.x, rectangle.y, rectangle.size, 150,  rectangle.color)
+            arcade.draw_rectangle_filled(rectangle.x, rectangle.y, rectangle.size, 150,  rectangle.color)
+
 
 
 
@@ -138,6 +137,9 @@ class MyGame(arcade.Window):
 def main():
     MyGame()
     arcade.run()
+    texture = arcade.load_texture("Images/background.png")
+    arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
+    arcade.set_background_color()
 
 
 if __name__ == "__main__":
