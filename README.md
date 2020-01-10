@@ -20,3 +20,4 @@ At the start of the game, two balls will appear instead of one. They will go in 
 ### Scoring
 Both players will start at zero points. Whenever a play misses and lets the ball go to side, the player on the opposite side will recieve a point. Whenever a player reaches seven points, they will win the game. There is a max of 13 games
 ### Functionality and Limitations
+When playing the game, some players may play for fun. This is fine for this game, except that at there is a max of 13 games, not unlimited.
