@@ -66,6 +66,20 @@ def make_rectangle1():
     rectangle1.color = arcade.color.WHITE
 
     return rectangle1
+def make_rectangle2():
+    
+    rectangle2 = Rectangle2()
+
+    rectangle2.size = 14
+
+    rectangle2.x = 1270
+    rectangle2.y = 350
+
+    rectangle2.change_y = 5
+
+    rectangle2.color = arcade.color.WHITE
+
+    return rectangle2
 
     
 
@@ -77,12 +91,12 @@ def make_ball():
     ball.size = 14
     # Starting position of the ball.
     # Take into account the ball size so we don't spawn on the edge.
-    ball.x = 700
-    ball.y = 400
+    ball.x = 640
+    ball.y = 390
 
     # Speed and direction of rectangle
-    ball.change_x = 5
-    ball.change_y = 5
+    ball.change_x = 8 or -8
+    ball.change_y = 0
 
     # Color
     ball.color = arcade.color.WHITE
@@ -103,6 +117,11 @@ class MyGame(arcade.Window):
         rectangle1 = make_rectangle1()
         self.rectangle1_list.append(rectangle1)
 
+        self.rectangle2_list = []
+        rectangle2 = make_rectangle2()
+        self.rectangle2_list.append(rectangle2)
+
+
     def on_draw(self):
         """
         Render the screen.
@@ -121,6 +140,8 @@ class MyGame(arcade.Window):
         for rectangle1 in self.rectangle1_list:
             arcade.draw_rectangle_filled(rectangle1.x, rectangle1.y, rectangle1.size, 150,  rectangle1.color)
             #arcade.draw_rectangle_filled(rectangle1.x, rectangle1.y, rectangle1.size, 150,  rectangle1.color)
+        for rectangle2 in self.rectangle2_list:
+            arcade.draw_rectangle_filled(rectangle2.x, rectangle2.y, rectangle2.size, 150,  rectangle2.color)
 
 
 
