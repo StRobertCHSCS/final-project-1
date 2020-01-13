@@ -8,11 +8,22 @@ import random
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Retro Ping Pong"
+Count_1 = 0
+Count_2 = 0
 
+up_pressed = False
+down_pressed = False
+up_2pressed = False
+down_2pressed = False
+
+MOVEMENT_SPEED = 5
 def fire_mode():
     pass
 
 def cat_mode():
+    cat_texture = arcade.load_texture("Images/The Cat.jpg")
+    arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width, texture.height, texture, 0)
+
     pass
 
 def multiball_mode():
@@ -58,10 +69,10 @@ def make_rectangle1():
 
     rectangle1.size = 14
 
-    rectangle1.x = 10
+    rectangle1.x = 1
     rectangle1.y = 350
 
-    rectangle1.change_y = 5
+    rectangle1.change_y = 0
 
     rectangle1.color = arcade.color.WHITE
 
@@ -75,7 +86,7 @@ def make_rectangle2():
     rectangle2.x = 1270
     rectangle2.y = 350
 
-    rectangle2.change_y = 5
+    rectangle2.change_y = 0
 
     rectangle2.color = arcade.color.WHITE
 
@@ -95,7 +106,7 @@ def make_ball():
     ball.y = 390
 
     # Speed and direction of rectangle
-    ball.change_x = 8 or -8
+    ball.change_x = 20
     ball.change_y = 0
 
     # Color
@@ -113,6 +124,7 @@ class MyGame(arcade.Window):
         self.ball_list = []
         ball = make_ball()
         self.ball_list.append(ball)
+
         self.rectangle1_list = []
         rectangle1 = make_rectangle1()
         self.rectangle1_list.append(rectangle1)
@@ -121,6 +133,11 @@ class MyGame(arcade.Window):
         rectangle2 = make_rectangle2()
         self.rectangle2_list.append(rectangle2)
 
+
+
+
+
+     
 
     def on_draw(self):
         """
@@ -139,19 +156,32 @@ class MyGame(arcade.Window):
 
         for rectangle1 in self.rectangle1_list:
             arcade.draw_rectangle_filled(rectangle1.x, rectangle1.y, rectangle1.size, 150,  rectangle1.color)
-            #arcade.draw_rectangle_filled(rectangle1.x, rectangle1.y, rectangle1.size, 150,  rectangle1.color)
+
+        rectangle1 = make_rectangle1()
+            
         for rectangle2 in self.rectangle2_list:
             arcade.draw_rectangle_filled(rectangle2.x, rectangle2.y, rectangle2.size, 150,  rectangle2.color)
+        
+        rectangle2 = make_rectangle2()
+
+
+
+        #def make_score_board():
+        Count_1 = "{}" .format(len(self.ball_list))
+        Count_2 = "{}" .format(len(self.ball_list))
+        arcade.draw_text(Count_1, 590, 660, arcade.color.WHITE, 30)
+        arcade.draw_text(Count_2, 690, 660, arcade.color.WHITE, 30)
 
 
 
 
     def on_update(self, delta_time):
+
         """ Movement and game logic """
         for ball in self.ball_list:
             ball.x += ball.change_x
             ball.y += ball.change_y
-
+        
 
 
             if ball.y < ball.size:
@@ -163,6 +193,50 @@ class MyGame(arcade.Window):
                 ball.change_y *= -1
 
 
+            if ball.y > 360:
+                ball.change_y *= -1
+        for rectangle2 in self.rectangle2_list:
+
+            if up_pressed == True:
+                rectangle2.y += 5
+
+            if down_pressed == True:
+                rectangle2.y -= 5
+        for rectangle1 in self.rectangle1_list:
+            if down_2pressed == True:
+                rectangle1.y -= 5
+    
+            if up_2pressed == True:
+                rectangle1.y += 5
+        
+
+
+
+    def on_key_press(self, key, modifiers):
+        """Called whenever a key is pressed. """
+        global up_pressed, down_pressed, up_2pressed, down_2pressed
+        if key == arcade.key.UP:
+            up_pressed = True
+        elif key == arcade.key.DOWN:
+            down_pressed = True
+        elif key == arcade.key.W:
+            up_2pressed = True
+        elif key == arcade.key.S:
+            down_2pressed = True
+            
+    def on_key_release(self, key, modifiers):
+        """Called when the user releases a key. """
+        global up_pressed, down_pressed, up_2pressed, down_2pressed
+        if key == arcade.key.UP:
+            up_pressed = False
+        elif key == arcade.key.DOWN:
+            down_pressed = False
+        elif key == arcade.key.W:
+            up_2pressed = False
+        elif key == arcade.key.S:
+            down_2pressed = False
+            
+            
 
 
 
