@@ -16,7 +16,7 @@ down_pressed = False
 up_2pressed = False
 down_2pressed = False
 
-MOVEMENT_SPEED = 5
+MOVEMENT_SPEED = 10
 def fire_mode():
     pass
 
@@ -69,7 +69,7 @@ def make_rectangle1():
 
     rectangle1.size = 14
 
-    rectangle1.x = 1
+    rectangle1.x = 10
     rectangle1.y = 350
 
     rectangle1.change_y = 0
@@ -209,6 +209,13 @@ class MyGame(arcade.Window):
     
             if up_2pressed == True:
                 rectangle1.y += 5
+        for ball in self.ball_list:
+            for rectangle1 in self.rectangle1_list:
+                if ball.size <= rectangle1.x and ball.y <= rectangle1.y + 75 and ball.y >= rectangle1.y - 75:
+                    ball.change_y *= -1
+            for rectangle2 in self.rectangle2_list:
+                if ball.size >= rectangle2.x and ball.y <= rectangle2.y + 75 and ball.y >= rectangle2.y - 75:
+                    ball.change_y*=-1
         
 
 
