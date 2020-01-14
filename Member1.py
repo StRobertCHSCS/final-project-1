@@ -193,8 +193,7 @@ class MyGame(arcade.Window):
                 ball.change_y *= -1
 
 
-            if ball.y > 360:
-                ball.change_y *= -1
+
                 
         for rectangle2 in self.rectangle2_list:
 
@@ -209,6 +208,16 @@ class MyGame(arcade.Window):
     
             if up_2pressed == True:
                 rectangle1.y += 5
+
+        for ball in self.ball_list:
+            for rectangle1 in self.rectangle1_list:
+                if ball.size == rectangle1.x and ball.y == rectangle1.y:
+                    ball.change_y *= -1
+            for rectangle2 in self.rectangle2_list:
+                if ball.size == rectangle2.x and ball.y <= rectangle2.y + 75 and ball.y >= rectangle2.y - 75:
+                    ball.change_y*=-1
+        
+
         
 
 
