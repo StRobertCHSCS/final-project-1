@@ -195,6 +195,7 @@ class MyGame(arcade.Window):
 
             if ball.y > 360:
                 ball.change_y *= -1
+                
         for rectangle2 in self.rectangle2_list:
 
             if up_pressed == True:
