@@ -16,7 +16,7 @@ down_pressed = False
 up_2pressed = False
 down_2pressed = False
 
-MOVEMENT_SPEED = 5
+MOVEMENT_SPEED = 100
 def fire_mode():
     pass
 
@@ -69,7 +69,7 @@ def make_rectangle1():
 
     rectangle1.size = 14
 
-    rectangle1.x = 1
+    rectangle1.x = 10
     rectangle1.y = 350
 
     rectangle1.change_y = 0
@@ -103,11 +103,11 @@ def make_ball():
     # Starting position of the ball.
     # Take into account the ball size so we don't spawn on the edge.
     ball.x = 640
-    ball.y = 390
+    ball.y = 360
 
     # Speed and direction of rectangle
-    ball.change_x = 20
-    ball.change_y = 0
+    ball.change_x = random.randrange(-10,10)
+    ball.change_y = random.randrange(-10,10)
 
     # Color
     ball.color = arcade.color.WHITE
@@ -143,7 +143,7 @@ class MyGame(arcade.Window):
         """
         Render the screen.
         """
-
+        global Count_1, Count_2
         
         # This command has to happen before we start drawing
         arcade.start_render()
@@ -167,10 +167,10 @@ class MyGame(arcade.Window):
 
 
         #def make_score_board():
-        Count_1 = "{}" .format(len(self.ball_list))
-        Count_2 = "{}" .format(len(self.ball_list))
-        arcade.draw_text(Count_1, 590, 660, arcade.color.WHITE, 30)
-        arcade.draw_text(Count_2, 690, 660, arcade.color.WHITE, 30)
+        Player_1 = "{}" .format(Count_1)
+        Player_2 = "{}" .format(Count_2)
+        arcade.draw_text(Player_1, 590, 660, arcade.color.WHITE, 30)
+        arcade.draw_text(Player_2, 690, 660, arcade.color.WHITE, 30)
 
 
 
@@ -178,10 +178,11 @@ class MyGame(arcade.Window):
     def on_update(self, delta_time):
 
         """ Movement and game logic """
+        global Count_1, Count_2
         for ball in self.ball_list:
             ball.x += ball.change_x
             ball.y += ball.change_y
-        
+
 
 
             if ball.y < ball.size:
@@ -191,9 +192,28 @@ class MyGame(arcade.Window):
 
             if ball.y > SCREEN_HEIGHT - ball.size:
                 ball.change_y *= -1
+            if ball.x >= 1300 and Count_1 <= 6:
+                ball.x = 640
+                ball.y = 360
+                Count_1 += 1
+            if ball.x <= -20 and Count_2 <= 6:
+                ball.x = 640
+                ball.y = 360
+                Count_2 += 1
+
+            for rectangle2 in self.rectangle2_list:
+                if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 75 and ball.y > rectangle2.y - 75:
+                    ball.change_x *= -1
+                    ball.change_y *= -1
+            for rectangle1 in self.rectangle1_list:
+                if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 75 and ball.y > rectangle1.y - 75:
+                    ball.change_x *= -1
+                    ball.change_y *= -1
 
 
 
+
+    
                 
         for rectangle2 in self.rectangle2_list:
 
@@ -209,13 +229,7 @@ class MyGame(arcade.Window):
             if up_2pressed == True:
                 rectangle1.y += 5
 
-        for ball in self.ball_list:
-            for rectangle1 in self.rectangle1_list:
-                if ball.size == rectangle1.x and ball.y == rectangle1.y:
-                    ball.change_y *= -1
-            for rectangle2 in self.rectangle2_list:
-                if ball.size == rectangle2.x and ball.y <= rectangle2.y + 75 and ball.y >= rectangle2.y - 75:
-                    ball.change_y*=-1
+
         
 
         
