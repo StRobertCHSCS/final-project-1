@@ -147,7 +147,7 @@ class MyGame(arcade.Window):
         """
         Render the screen.
         """
-
+        global Count_1, Count_2
         
         # This command has to happen before we start drawing
         arcade.start_render()
@@ -171,8 +171,8 @@ class MyGame(arcade.Window):
 
 
         #def make_score_board():
-        Count_1 = "{}" .format(len(self.ball_list))
-        Count_2 = "{}" .format(len(self.ball_list))
+        Player_1 = "{}" .format(Count_1)
+        player_2 = "{}" .format(Count_2)
         arcade.draw_text(Count_1, 575, 660, arcade.color.WHITE, 30)
         arcade.draw_text(Count_2, 690, 660, arcade.color.WHITE, 30)
 
@@ -212,7 +212,15 @@ class MyGame(arcade.Window):
     
             if up_2pressed == True:
                 rectangle1.y += 5
-        
+
+        for ball in self.ball_list:
+            for rectangle1 in self.rectangle1_list:
+                if ball.size == rectangle1.x and ball.y == rectangle1.y:
+                    ball.change_y *= -1
+            for rectangle2 in self.rectangle2_list:
+                if ball.size == rectangle2.x and ball.y <= rectangle2.y + 75 and ball.y >= rectangle2.y - 75:
+                    ball.change_y *= -1
+              
 
 
 
@@ -236,9 +244,9 @@ class MyGame(arcade.Window):
         elif key == arcade.key.DOWN:
             down_pressed = False
         elif key == arcade.key.W:
-            up_2pressed = False
+            up_2_pressed = False
         elif key == arcade.key.S:
-            down_2pressed = False
+            down_2_pressed = False
             
             
 
