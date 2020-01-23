@@ -15,7 +15,7 @@ up_pressed = False
 down_pressed = False
 up_2pressed = False
 down_2pressed = False
-
+game_mode = 0
 MOVEMENT_SPEED = 10
 
 arcade_mode = random.randrange(1, 5)
@@ -261,11 +261,13 @@ class MyGame(arcade.Window):
             up_2pressed = True
         elif key == arcade.key.S:
             down_2pressed = True
+
+
     def on_mouse_press(x, y, button, modifiers):
 
 
         # Need to check all four limits of the button.
-        if (x > 460 and x < 805  and y > 280 and y < 362 ):
+        if (x > 496 and x < 810  and y > 306 and y < 371 ):
             game_mode = 1
         elif(x > 460 and x < 805  and y > 135 and y < 220 ):
             game_mode = 2
