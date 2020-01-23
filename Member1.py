@@ -16,24 +16,14 @@ down_pressed = False
 up_2pressed = False
 down_2pressed = False
 
-MOVEMENT_SPEED = 100
+MOVEMENT_SPEED = 10
+
+arcade_mode = random.randrange(1, 5)
+
+
 def fire_mode():
-    pass
+    arcade.draw_rectangle_outline(640, 360, 500, 500, arcade.color.ORANGE, 10)
 
-def cat_mode():
-    cat_texture = arcade.load_texture("Images/The Cat.jpg")
-    arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width, texture.height, texture, 0)
-
-    pass
-
-def multiball_mode():
-    pass
-
-def big_ball_mode():
-    pass
-
-def secret_wall():
-    pass
 
 class Ball:
 
@@ -95,7 +85,8 @@ def make_rectangle2():
     
 
 def make_ball():
-
+    global Count_1
+    global Count_2
     ball = Ball()
 
     # Size of the ball
@@ -106,9 +97,12 @@ def make_ball():
     ball.y = 360
 
     # Speed and direction of rectangle
-    ball.change_x = random.randrange(-10,10)
-    ball.change_y = random.randrange(-10,10)
-
+    if Count_1 >= Count_2:
+        ball.change_x = random.randrange(10,20)
+        ball.change_y = random.randrange(10,20)
+    if Count_2 > Count_1:
+        ball.change_x = random.randrange(-10,-20)
+        ball.change_y = random.randrange(-10,-20)
     # Color
     ball.color = arcade.color.WHITE
 
@@ -118,20 +112,22 @@ def make_ball():
 class MyGame(arcade.Window):
     """ Main application class. """
 
-    def __init__(self):
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+    def normal_pong():
+
+        def __init__(self):
+            super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         
-        self.ball_list = []
-        ball = make_ball()
-        self.ball_list.append(ball)
+            self.ball_list = []
+            ball = make_ball()
+            self.ball_list.append(ball)
 
-        self.rectangle1_list = []
-        rectangle1 = make_rectangle1()
-        self.rectangle1_list.append(rectangle1)
+            self.rectangle1_list = []
+            rectangle1 = make_rectangle1()
+            self.rectangle1_list.append(rectangle1)
 
-        self.rectangle2_list = []
-        rectangle2 = make_rectangle2()
-        self.rectangle2_list.append(rectangle2)
+            self.rectangle2_list = []
+            rectangle2 = make_rectangle2()
+            self.rectangle2_list.append(rectangle2)
 
 
 
@@ -175,6 +171,13 @@ class MyGame(arcade.Window):
 
 
 
+
+
+
+
+
+
+
     def on_update(self, delta_time):
 
         """ Movement and game logic """
@@ -196,6 +199,7 @@ class MyGame(arcade.Window):
                 ball.x = 640
                 ball.y = 360
                 Count_1 += 1
+
             if ball.x <= -20 and Count_2 <= 6:
                 ball.x = 640
                 ball.y = 360
@@ -203,12 +207,15 @@ class MyGame(arcade.Window):
 
             for rectangle2 in self.rectangle2_list:
                 if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 75 and ball.y > rectangle2.y - 75:
+
                     ball.change_x *= -1
                     ball.change_y *= -1
+  
             for rectangle1 in self.rectangle1_list:
                 if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 75 and ball.y > rectangle1.y - 75:
                     ball.change_x *= -1
                     ball.change_y *= -1
+                    
 
 
 
@@ -228,10 +235,17 @@ class MyGame(arcade.Window):
     
             if up_2pressed == True:
                 rectangle1.y += 5
-
-
+        for ball in self.ball_list:
+            for rectangle1 in self.rectangle1_list:
+                if ball.size <= rectangle1.x and ball.y <= rectangle1.y + 75 and ball.y >= rectangle1.y - 75:
+                   
+                    ball.change_y *= -1
+            for rectangle2 in self.rectangle2_list:
+                if ball.size >= rectangle2.x and ball.y <= rectangle2.y + 75 and ball.y >= rectangle2.y - 75:
+                    
+                    ball.change_y*=-1
         
-
+                    
         
 
 
@@ -247,6 +261,16 @@ class MyGame(arcade.Window):
             up_2pressed = True
         elif key == arcade.key.S:
             down_2pressed = True
+    def on_mouse_press(x, y, button, modifiers):
+
+
+        # Need to check all four limits of the button.
+        if (x > 460 and x < 805  and y > 280 and y < 362 ):
+            game_mode = 1
+        elif(x > 460 and x < 805  and y > 135 and y < 220 ):
+            game_mode = 2
+
+
             
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
