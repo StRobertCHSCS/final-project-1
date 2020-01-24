@@ -16,10 +16,14 @@ down_pressed = False
 up_2pressed = False
 down_2pressed = False
 
+my_button1 = [653, 338.5, 314, 65]
+my_button2 = [653, 215.5, 314, 65]
+
+
 MOVEMENT_SPEED = 10
 
 arcade_mode = random.randrange(1, 5)
-
+game_mode = 0
 
 def fire_mode():
     arcade.draw_rectangle_outline(640, 360, 500, 500, arcade.color.ORANGE, 10)
@@ -98,11 +102,11 @@ def make_ball():
 
     # Speed and direction of rectangle
     if Count_1 >= Count_2:
-        ball.change_x = random.randrange(10,20)
-        ball.change_y = random.randrange(10,20)
+        ball.change_x = random.randrange(10,20, 20)
+        ball.change_y = random.randrange(10,20, 20)
     if Count_2 > Count_1:
-        ball.change_x = random.randrange(-10,-20)
-        ball.change_y = random.randrange(-10,-20)
+        ball.change_x = random.randrange(-10,-20,20)
+        ball.change_y = random.randrange(-10,-20, 20)
     # Color
     ball.color = arcade.color.WHITE
 
@@ -111,23 +115,27 @@ def make_ball():
 
 class MyGame(arcade.Window):
     """ Main application class. """
+    def Title_Screen():
+        global game_mode
+        title = arcade.load_texture("Images/Title Screen.png")
+        if game_mode == 0:
+            arcade.draw_texture_rectangle(title.width, title.height, title.width,title.height, title, 0)
 
-    def normal_pong():
-
-        def __init__(self):
-            super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+ 
+    def __init__(self):
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         
-            self.ball_list = []
-            ball = make_ball()
-            self.ball_list.append(ball)
+        self.ball_list = []
+        ball = make_ball()
+        self.ball_list.append(ball)
 
-            self.rectangle1_list = []
-            rectangle1 = make_rectangle1()
-            self.rectangle1_list.append(rectangle1)
+        self.rectangle1_list = []
+        rectangle1 = make_rectangle1()
+        self.rectangle1_list.append(rectangle1)
 
-            self.rectangle2_list = []
-            rectangle2 = make_rectangle2()
-            self.rectangle2_list.append(rectangle2)
+        self.rectangle2_list = []
+        rectangle2 = make_rectangle2()
+        self.rectangle2_list.append(rectangle2)
 
 
 
@@ -143,22 +151,30 @@ class MyGame(arcade.Window):
         
         # This command has to happen before we start drawing
         arcade.start_render()
-        texture = arcade.load_texture("Images/background.png")
-        arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
-        for ball in self.ball_list:
-            arcade.draw_circle_filled(ball.x, ball.y, ball.size, ball.color)
-       
-        ball = make_ball()
+        global game_mode
+        title = arcade.load_texture("Images/Title Screen.png")
+        if game_mode == 0:
+            arcade.draw_texture_rectangle(title.width//2, title.height//2, title.width,title.height, title, 0)
 
-        for rectangle1 in self.rectangle1_list:
-            arcade.draw_rectangle_filled(rectangle1.x, rectangle1.y, rectangle1.size, 150,  rectangle1.color)
-
-        rectangle1 = make_rectangle1()
-            
-        for rectangle2 in self.rectangle2_list:
-            arcade.draw_rectangle_filled(rectangle2.x, rectangle2.y, rectangle2.size, 150,  rectangle2.color)
+        if game_mode == 1 or gamwe_mode ==2:
+            texture = arcade.load_texture("Images/background.png")
+            arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
         
-        rectangle2 = make_rectangle2()
+        if game_mode == 1:
+            for ball in self.ball_list:
+                arcade.draw_circle_filled(ball.x, ball.y, ball.size, ball.color)
+       
+            ball = make_ball()
+
+            for rectangle1 in self.rectangle1_list:
+                arcade.draw_rectangle_filled(rectangle1.x, rectangle1.y, rectangle1.size, 150,  rectangle1.color)
+
+            rectangle1 = make_rectangle1()
+            
+            for rectangle2 in self.rectangle2_list:
+                arcade.draw_rectangle_filled(rectangle2.x, rectangle2.y, rectangle2.size, 150,  rectangle2.color)
+        
+            rectangle2 = make_rectangle2()
 
 
 
@@ -252,7 +268,7 @@ class MyGame(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
-        global up_pressed, down_pressed, up_2pressed, down_2pressed
+        global up_pressed, down_pressed, up_2pressed, down_2pressed, game_mode
         if key == arcade.key.UP:
             up_pressed = True
         elif key == arcade.key.DOWN:
@@ -261,18 +277,18 @@ class MyGame(arcade.Window):
             up_2pressed = True
         elif key == arcade.key.S:
             down_2pressed = True
-    def on_mouse_press(x, y, button, modifiers):
+        if game_mode == 0:
+            if key == arcade.key.G:
+                game_mode = 1
+            elif key == arcade.key.H:
+                game_mode = 2
 
 
-        # Need to check all four limits of the button.
-        if (x > 460 and x < 805  and y > 280 and y < 362 ):
-            game_mode = 1
-        elif(x > 460 and x < 805  and y > 135 and y < 220 ):
-            game_mode = 2
+
 
 
             
-    def on_key_release(self, key, modifiers):
+    def on_key_release(self, key, button, modifiers):
         """Called when the user releases a key. """
         global up_pressed, down_pressed, up_2pressed, down_2pressed
         if key == arcade.key.UP:
@@ -283,6 +299,9 @@ class MyGame(arcade.Window):
             up_2pressed = False
         elif key == arcade.key.S:
             down_2pressed = False
+
+        
+        
             
             
 
@@ -291,10 +310,16 @@ class MyGame(arcade.Window):
 def main():
     MyGame()
     arcade.run()
+    window = arcade.get_window()
+    window.on_draw = on_draw
+    window.on_key_press = on_key_press
+    window.on_key_release = on_key_release
+    window.on_mouse_press = on_mouse_press
+    """
     texture = arcade.load_texture("Images/background.png")
     arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
     arcade.set_background_color()
-
-
+    """
+    print(game_mode)
 if __name__ == "__main__":
     main()

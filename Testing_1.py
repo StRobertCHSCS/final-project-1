@@ -1,260 +1,69 @@
-
+"""
+Button Click
+1. Figure out how you want to represent a button. Create global variable(s) for it.
+2. Draw the button using the information stored in the button's variable(s).
+3. In the on_mouse_press function, compare the mouse x and mouse y values to the
+   values of the button to determine if there was a click or not.
+"""
 
 import arcade
-import random
 
-###
 
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 720
-SCREEN_TITLE = "Retro Ping Pong"
-Count_1 = 0
-Count_2 = 0
+WIDTH = 640
+HEIGHT = 480
 
-up_pressed = False
-down_pressed = False
-up_2pressed = False
-down_2pressed = False
+# There are better ways to represent buttons
+my_button = [100, 200, 150, 50]  # x, y, width, height
 
-MOVEMENT_SPEED = 10
-def fire_mode():
+
+def on_update(delta_time):
     pass
 
-def cat_mode():
-    cat_texture = arcade.load_texture("Images/The Cat.jpg")
-    arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width, texture.height, texture, 0)
 
+def on_draw():
+    arcade.start_render()
+    # Draw in here...
+    arcade.draw_xywh_rectangle_filled(my_button[0],
+                                      my_button[1],
+                                      my_button[2],
+                                      my_button[3],
+                                      arcade.color.BLACK)
+
+
+def on_key_press(key, modifiers):
     pass
 
-def multiball_mode():
+
+def on_key_release(key, modifiers):
     pass
 
-def big_ball_mode():
-    pass
 
-def secret_wall():
-    pass
+def on_mouse_press(x, y, button, modifiers):
+    # unpack the button list into readable? variables.
+    my_button_x, my_button_y, my_button_w, my_button_h = my_button
 
-class Ball:
-
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.change_x = 0
-        self.change_y = 0
-        self.size = 0
-        self.color = None
-class Rectangle1:
-    
-    def __init__(self):
-        self.x = 0 
-        self.y = 0
-        self.change_x = 0 
-        self.change_y = 0
-        self.size = 0
-        self.color = None
-
-class Rectangle2:
-    def __init__(self):
-        self.x = 0 
-        self.y = 0
-        self.change_x = 0 
-        self.change_y = 0
-        self.size = 0
-        self.color = None
-    
-def make_rectangle1():
-    
-    rectangle1 = Rectangle1()
-
-    rectangle1.size = 14
-
-    rectangle1.x = 10
-    rectangle1.y = 350
-
-    rectangle1.change_y = 0
-
-    rectangle1.color = arcade.color.WHITE
-
-    return rectangle1
-def make_rectangle2():
-    
-    rectangle2 = Rectangle2()
-
-    rectangle2.size = 14
-
-    rectangle2.x = 1270
-    rectangle2.y = 350
-
-    rectangle2.change_y = 0
-
-    rectangle2.color = arcade.color.WHITE
-
-    return rectangle2
-
-    
-
-def make_ball():
-
-    ball = Ball()
-
-    # Size of the ball
-    ball.size = 14
-    # Starting position of the ball.
-    # Take into account the ball size so we don't spawn on the edge.
-    ball.x = 640
-    ball.y = 390
-
-    # Speed and direction of rectangle
-    ball.change_x = 20
-    ball.change_y = 0
-
-    # Color
-    ball.color = arcade.color.WHITE
-
-    return ball
+    # Need to check all four limits of the button.
+    if (x > my_button_x and x < my_button_x + my_button_w and
+            y > my_button_y and y < my_button_y + my_button_h):
+        print("Clicked!!!")
+    else:
+        print("not clicked")
 
 
-class MyGame(arcade.Window):
-    """ Main application class. """
+def setup():
+    arcade.open_window(WIDTH, HEIGHT, "My Arcade Game")
+    arcade.set_background_color(arcade.color.WHITE)
+    arcade.schedule(on_update, 1/60)
 
-    def __init__(self):
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-        
-        self.ball_list = []
-        ball = make_ball()
-        self.ball_list.append(ball)
+    # Override arcade window methods
+    window = arcade.get_window()
+    window.on_draw = on_draw
+    window.on_key_press = on_key_press
+    window.on_key_release = on_key_release
+    window.on_mouse_press = on_mouse_press
 
-        self.rectangle1_list = []
-        rectangle1 = make_rectangle1()
-        self.rectangle1_list.append(rectangle1)
-
-        self.rectangle2_list = []
-        rectangle2 = make_rectangle2()
-        self.rectangle2_list.append(rectangle2)
-
-
-
-
-
-     
-
-    def on_draw(self):
-        """
-        Render the screen.
-        """
-
-        
-        # This command has to happen before we start drawing
-        arcade.start_render()
-        texture = arcade.load_texture("Images/background.png")
-        arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
-        for ball in self.ball_list:
-            arcade.draw_circle_filled(ball.x, ball.y, ball.size, ball.color)
-       
-        ball = make_ball()
-
-        for rectangle1 in self.rectangle1_list:
-            arcade.draw_rectangle_filled(rectangle1.x, rectangle1.y, rectangle1.size, 150,  rectangle1.color)
-
-        rectangle1 = make_rectangle1()
-            
-        for rectangle2 in self.rectangle2_list:
-            arcade.draw_rectangle_filled(rectangle2.x, rectangle2.y, rectangle2.size, 150,  rectangle2.color)
-        
-        rectangle2 = make_rectangle2()
-
-
-
-        #def make_score_board():
-        Count_1 = "{}" .format(len(self.ball_list))
-        Count_2 = "{}" .format(len(self.ball_list))
-        arcade.draw_text(Count_1, 590, 660, arcade.color.WHITE, 30)
-        arcade.draw_text(Count_2, 690, 660, arcade.color.WHITE, 30)
-
-
-
-
-    def on_update(self, delta_time):
-
-        """ Movement and game logic """
-        for ball in self.ball_list:
-            ball.x += ball.change_x
-            ball.y += ball.change_y
-        
-
-
-            if ball.y < ball.size:
-                ball.change_y *= -1
-
-
-
-            if ball.y > SCREEN_HEIGHT - ball.size:
-                ball.change_y *= -1
-
-
-            if ball.y > 360:
-                ball.change_y *= -1
-                
-        for rectangle2 in self.rectangle2_list:
-
-            if up_pressed == True:
-                rectangle2.y += 5
-
-            if down_pressed == True:
-                rectangle2.y -= 5
-        for rectangle1 in self.rectangle1_list:
-            if down_2pressed == True:
-                rectangle1.y -= 5
-    
-            if up_2pressed == True:
-                rectangle1.y += 5
-        for ball in self.ball_list:
-            for rectangle1 in self.rectangle1_list:
-                if ball.size <= rectangle1.x and ball.y <= rectangle1.y + 75 and ball.y >= rectangle1.y - 75:
-                    ball.change_y *= -1
-            for rectangle2 in self.rectangle2_list:
-                if ball.size >= rectangle2.x and ball.y <= rectangle2.y + 75 and ball.y >= rectangle2.y - 75:
-                    ball.change_y*=-1
-        
-
-
-
-    def on_key_press(self, key, modifiers):
-        """Called whenever a key is pressed. """
-        global up_pressed, down_pressed, up_2pressed, down_2pressed
-        if key == arcade.key.UP:
-            up_pressed = True
-        elif key == arcade.key.DOWN:
-            down_pressed = True
-        elif key == arcade.key.W:
-            up_2pressed = True
-        elif key == arcade.key.S:
-            down_2pressed = True
-            
-    def on_key_release(self, key, modifiers):
-        """Called when the user releases a key. """
-        global up_pressed, down_pressed, up_2pressed, down_2pressed
-        if key == arcade.key.UP:
-            up_pressed = False
-        elif key == arcade.key.DOWN:
-            down_pressed = False
-        elif key == arcade.key.W:
-            up_2pressed = False
-        elif key == arcade.key.S:
-            down_2pressed = False
-            
-            
-
-
-
-def main():
-    MyGame()
     arcade.run()
-    texture = arcade.load_texture("Images/background.png")
-    arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
-    arcade.set_background_color()
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    setup()
