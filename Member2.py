@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+"""
+Bounce balls on the screen.
+Spawn a new ball for each mouse-click.
+
+If Python and Arcade are installed, this example can be run from the command line with:
+python -m arcade.examples.bouncing_balls
+"""
+>>>>>>> 6190719e2bfcd481a7a9d7a6f599de110a47dfd0
 import arcade
 import random
  
@@ -17,6 +27,15 @@ MOVEMENT_SPEED = 10
  
 arcade_mode = random.randrange(1, 5)
  
+<<<<<<< HEAD
+=======
+def Title_Screen():
+    texture = arcade.load_texture("Images/Title Screen.png")
+    if game_mode == 0:
+        arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
+ 
+ 
+>>>>>>> 6190719e2bfcd481a7a9d7a6f599de110a47dfd0
  
 def fire_mode():
     arcade.draw_rectangle_outline(640, 360, 500, 500, arcade.color.ORANGE, 10)
@@ -108,7 +127,13 @@ def make_ball():
  
 class MyGame(arcade.Window):
     """ Main application class. """
+<<<<<<< HEAD
     def __init__(self):
+=======
+ 
+ 
+def __init__(self):
+>>>>>>> 6190719e2bfcd481a7a9d7a6f599de110a47dfd0
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         
         self.ball_list = []
@@ -127,6 +152,10 @@ class MyGame(arcade.Window):
  
  
  
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 6190719e2bfcd481a7a9d7a6f599de110a47dfd0
      
  
     def on_draw(self):
@@ -162,6 +191,7 @@ class MyGame(arcade.Window):
         arcade.draw_text(Player_1, 590, 660, arcade.color.WHITE, 30)
         arcade.draw_text(Player_2, 690, 660, arcade.color.WHITE, 30)
  
+<<<<<<< HEAD
  
  
  
@@ -172,6 +202,8 @@ class MyGame(arcade.Window):
  
  
  
+=======
+>>>>>>> 6190719e2bfcd481a7a9d7a6f599de110a47dfd0
     def on_update(self, delta_time):
  
         """ Movement and game logic """
@@ -201,16 +233,31 @@ class MyGame(arcade.Window):
  
             for rectangle2 in self.rectangle2_list:
                 if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 75 and ball.y > rectangle2.y - 75:
+<<<<<<< HEAD
  
+=======
+                    ball.change_x = random.randrange(-10,-20)
+                    ball.change_y = random.randrange(-10,-20)
+>>>>>>> 6190719e2bfcd481a7a9d7a6f599de110a47dfd0
                     ball.change_x *= -1
                     ball.change_y *= -1
   
             for rectangle1 in self.rectangle1_list:
+<<<<<<< HEAD
                 if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 75 and ball.y > rectangle1.y - 75:
                     ball.change_x *= -1
                     ball.change_y *= -1
                     
  
+=======
+                if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 75 and ball.y > rectangle1.y - 75: 
+                    ball.change_x = random.randrange(10,20)
+                    ball.change_y = random.randrange(10,20)
+                    ball.change_x *= -1
+                    ball.change_y *= -1
+                    
+    
+>>>>>>> 6190719e2bfcd481a7a9d7a6f599de110a47dfd0
  
  
  
@@ -258,11 +305,21 @@ class MyGame(arcade.Window):
  
  
     def on_mouse_press(x, y, button, modifiers):
+<<<<<<< HEAD
         # Need to check all four limits of the button.
         if (x > 496 and x < 810  and y > 306 and y < 371 ):
             game_mode = 1
         elif(x > 460 and x < 805  and y > 135 and y < 220 ):
             game_mode = 2
+=======
+        
+        # Need to check all four limits of the button.
+        if game_mode == 0:
+            if (x > 496 and x < 810  and y > 306 and y < 371 ):
+                game_mode = 1
+            elif(x > 460 and x < 805  and y > 135 and y < 220 ):
+                game_mode = 2
+>>>>>>> 6190719e2bfcd481a7a9d7a6f599de110a47dfd0
  
  
             

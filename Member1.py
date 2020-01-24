@@ -16,8 +16,6 @@ down_pressed = False
 up_2pressed = False
 down_2pressed = False
 
-my_button1 = [653, 338.5, 314, 65]
-my_button2 = [653, 215.5, 314, 65]
 
 
 MOVEMENT_SPEED = 10

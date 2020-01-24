@@ -21,3 +21,20 @@ At the start of the game, two balls will appear instead of one. They will go in 
 Both players will start at zero points. Whenever a play misses and lets the ball go to side, the player on the opposite side will recieve a point. Whenever a player reaches seven points, they will win the game. There is a max of 13 games
 ### Functionality and Limitations
 When playing the game, some players may play for fun. This is fine for this game, except that at there is a max of 13 games, not unlimited. Another limitation is how you can only use your keyboard to play, no mouse presses are used when playing this game, some may enjoy using mouse presses instead of key presses.
+### Screen Mockups: 
+![alt text][normalpong]
+
+[normalpong]: https://raw.githubusercontent.com/StRobertCHSCS/final-project-1/master/Images/Normal%20Pong%20Mode.png
+![alt text][secretwallmode]
+
+[secretwallmode]: https://raw.githubusercontent.com/StRobertCHSCS/final-project-1/master/Images/Secret%20Wall%20Action%20Mode.png
+![alt text][firemode]
+
+[firemode]: https://raw.githubusercontent.com/StRobertCHSCS/final-project-1/master/Images/Ring%20of%20Fire%20Action%20Mode.png
+![alt text][multiballmode]
+
+[multiballmode]: https://raw.githubusercontent.com/StRobertCHSCS/final-project-1/master/Images/MultiBall%20Action%20Mode.png
+![alt text][catmode]
+
+[catmode]: https://raw.githubusercontent.com/StRobertCHSCS/final-project-1/master/Images/Cat%20Action%20Pong%20Mode.png
+
