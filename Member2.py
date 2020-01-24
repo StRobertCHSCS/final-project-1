@@ -207,16 +207,19 @@ def __init__(self):
  
             for rectangle2 in self.rectangle2_list:
                 if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 75 and ball.y > rectangle2.y - 75:
- 
+                    ball.change_x = random.randrange(-10,-20)
+                    ball.change_y = random.randrange(-10,-20)
                     ball.change_x *= -1
                     ball.change_y *= -1
   
             for rectangle1 in self.rectangle1_list:
-                if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 75 and ball.y > rectangle1.y - 75:
+                if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 75 and ball.y > rectangle1.y - 75: 
+                    ball.change_x = random.randrange(10,20)
+                    ball.change_y = random.randrange(10,20)
                     ball.change_x *= -1
                     ball.change_y *= -1
                     
- 
+    
  
  
  
