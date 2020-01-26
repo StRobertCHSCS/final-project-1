@@ -9,15 +9,15 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Retro Ping Pong"
 
-Count_1 = 0 #Score for Player 1
-Count_2 = 0 #Score for Player 2
-up_pressed = False #Allows player 1 to move paddle up
-down_pressed = False #Allows player 1 to move paddle down
-up_2pressed = False #Allows player 2 to move paddle up
-down_2pressed = False #Allows player 2 to move paddle down
-new_ball = False #When the ball is drawn
-MOVEMENT_SPEED = 10 #How fast the ball moves
-game_mode = 0 #Determines normal pong or action pong
+Count_1 = 0  #Score for Player 1
+Count_2 = 0  #Score for Player 2
+up_pressed = False  #Allows player 1 to move paddle up
+down_pressed = False  #Allows player 1 to move paddle down
+up_2pressed = False  #Allows player 2 to move paddle up
+down_2pressed = False  #Allows player 2 to move paddle down
+new_ball = False  #When the ball is drawn
+MOVEMENT_SPEED = 10  #How fast the ball moves
+game_mode = 0  #Determines normal pong or action pong
 
 class Ball:
     """Movement of the Ball"""
@@ -144,6 +144,7 @@ class MyGame(arcade.Window):
 
  
     def __init__(self):
+        """Creates the Background"""
         global new_ball
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         
@@ -237,7 +238,6 @@ class MyGame(arcade.Window):
 
 
     def on_update(self, delta_time):
-
         """ Movement and game logic """
         global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode, arcade_mode,
 
@@ -348,7 +348,7 @@ class MyGame(arcade.Window):
 
 
     def on_key_press(self, key, modifiers):
-        """Called whenever a key is pressed. """
+        """Called whenever a key is pressed"""
         global up_pressed, down_pressed, up_2pressed, down_2pressed, game_mode, new_ball
         if key == arcade.key.UP:
             up_pressed = True
@@ -373,7 +373,7 @@ class MyGame(arcade.Window):
 
             
     def on_key_release(self, key, modifiers):
-        """Called when the user releases a key. """
+        """Called when the user releases a key"""
         global up_pressed, down_pressed, up_2pressed, down_2pressed, new_ball
         if key == arcade.key.UP:
             up_pressed = False
@@ -390,6 +390,7 @@ class MyGame(arcade.Window):
             game_mode = 1
         elif key == arcade.key.H:
             game_mode = 2
+            
     def on_mouse_press(self, x, y, button, modifiers):
         """
         Called whenever the mouse button is clicked.
