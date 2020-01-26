@@ -5,6 +5,7 @@ The player controls an in-game paddle, structured as a rectangle, by moving it u
 ### Gameplay Instructions
 #### Normal Pong
 Player 1 will use the keys "W" and 'S" to make the paddle move up and down. Player 1 will control the paddle on the left side. Player 2 will use the arrow keys the "↑" and "↓" to make the paddle move up and down. Player 2 will control the paddle on the right side.
+For the ball to appear you have to click on the mouse for the ball to appear. 
 #### Action Pong
 The controls are the same as in normal pong, but there are different modes that affect the game
 ###### RING OF FIRE!!!
@@ -31,10 +32,7 @@ When playing the game, some players may play for fun. This is fine for this game
 ![alt text][firemode]
 
 [firemode]: https://raw.githubusercontent.com/StRobertCHSCS/final-project-1/master/Images/Ring%20of%20Fire%20Action%20Mode.png
-![alt text][multiballmode]
 
-[multiballmode]: https://raw.githubusercontent.com/StRobertCHSCS/final-project-1/master/Images/MultiBall%20Action%20Mode.png
-![alt text][catmode]
 
-[catmode]: https://raw.githubusercontent.com/StRobertCHSCS/final-project-1/master/Images/Cat%20Action%20Pong%20Mode.png
+
 
