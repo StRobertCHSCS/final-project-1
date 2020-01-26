@@ -16,35 +16,39 @@ up_pressed = False
 down_pressed = False
 up_2pressed = False
 down_2pressed = False
-speed_up = 1
+speed_up = 0
 new_ball = False
 MOVEMENT_SPEED = 10
-wall.y == random.randrange(120,600)
-wall.x = 640
+wally = random.randrange(120,600)
+wallx = 640
 arcade_mode = 1
 game_mode = 0
 
 def fire_mode():
+    global game_mode, arcade_mode
     """Fire Arcade Mode"""
     if game_mode == 2 and arcade_mode == 1:
+       
         arcade.draw_rectangle_outline(640, 360, 500, 500, arcade.color.ORANGE, 10)
-        arcade_mode += 1
-        if ball.x <= 890 and ball.x >= 390 and ball.y <= 410 and ball.y >= 110:
-            speed_up *= 10
+        if Count_1 > Count_2:
+            arcade_mode += 1
+        elif Count_2 >Count_1:
+            arcade_mode += 1
+
     
 def Secret_Wall():
     """Secret Wall Arcade Mode"""
-    if ball.x <= wall.x + 15 and ball.x >= wall.x and ball.y <= wall.y + 100 and ball.y >= wall.y - 100:
+    if ball.x <= wallx + 15 and ball.x >= wallx and ball.y <= wally + 100 and ball.y >= wally - 100:
         ball.change_x *= -1
         ball.change_y *= -1
         ball.change_y += 1
-        arcade.draw_rectangle_outline(wall.x, wall.y, 30, 200, arcade.color.WHITE, 10) 
-    if ball.x <= wall.x - 15 and ball.x >= wall.x and ball.y <= wall.y + 100 and ball.y >= wall.y - 100:
+        arcade.draw_rectangle_outline(wallx, wally, 30, 200, arcade.color.WHITE, 10) 
+    if ball.x <= wallx - 15 and ball.x >= wallx and bally <= wally + 100 and ball.y >= wally - 100:
         ball.change_x *= -1
         ball.change_y *= -1
         ball.change_y -= 1
-        arcade.draw_rectangle_outline(wall.x, wall.y, 30, 200, arcade.color.WHITE, 10) 
-       
+        arcade.draw_rectangle_outline(wallx, wally, 30, 200, arcade.color.WHITE, 10) 
+
 class Ball:
     """Movement of the Ball"""
     def __init__(self):
@@ -125,8 +129,8 @@ def make_ball():
 
     # Speed and direction of rectangle
     if Count_1 >= Count_2:
-        ball.change_x = (MOVEMENT_SPEED*100+1+speed_up) / 100
-        ball.change_y = (MOVEMENT_SPEED*100+1+speed_up) / 100
+        ball.change_x = (MOVEMENT_SPEED*100+1) / 100
+        ball.change_y = (MOVEMENT_SPEED*100+1) / 100
     elif Count_2 > Count_1:
         ball.change_x = (-MOVEMENT_SPEED*100+1) / 100
         ball.change_y = (-MOVEMENT_SPEED*100+1) / 100
@@ -234,10 +238,11 @@ class MyGame(arcade.Window):
 
 
 
+
     def on_update(self, delta_time):
 
         """ Movement and game logic """
-        global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode
+        global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode, arcade_mode, speed_up
         if game_mode == 1 or game_mode == 2:
             for ball in self.ball_list:
 
@@ -314,6 +319,11 @@ class MyGame(arcade.Window):
     
                 elif up_2pressed == True:
                     rectangle1.y += 10
+            if game_mode == 2 and arcade_mode == 1:
+                for ball in self.ball_list:
+                    if ball.x <= 890 and ball.x >= 390 and ball.y <= 410 and ball.y >= 110:
+                        speed_up += 1
+                        ball.change_x += speed_up
 
             
 
