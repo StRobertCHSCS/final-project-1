@@ -16,20 +16,37 @@ up_pressed = False
 down_pressed = False
 up_2pressed = False
 down_2pressed = False
-
+speed_up = 1
 new_ball = False
 MOVEMENT_SPEED = 10
-
-
-arcade_mode = random.randrange(1, 5)
+wall.y == random.randrange(120,600)
+wall.x = 640
+arcade_mode = 1
 game_mode = 0
 
 def fire_mode():
-    arcade.draw_rectangle_outline(640, 360, 500, 500, arcade.color.ORANGE, 10)
-
-
+    """Fire Arcade Mode"""
+    if game_mode == 2 and arcade_mode == 1:
+        arcade.draw_rectangle_outline(640, 360, 500, 500, arcade.color.ORANGE, 10)
+        arcade_mode += 1
+        if ball.x <= 890 and ball.x >= 390 and ball.y <= 410 and ball.y >= 110:
+            speed_up *= 10
+    
+def Secret_Wall():
+    """Secret Wall Arcade Mode"""
+    if ball.x <= wall.x + 15 and ball.x >= wall.x and ball.y <= wall.y + 100 and ball.y >= wall.y - 100:
+        ball.change_x *= -1
+        ball.change_y *= -1
+        ball.change_y += 1
+        arcade.draw_rectangle_outline(wall.x, wall.y, 30, 200, arcade.color.WHITE, 10) 
+    if ball.x <= wall.x - 15 and ball.x >= wall.x and ball.y <= wall.y + 100 and ball.y >= wall.y - 100:
+        ball.change_x *= -1
+        ball.change_y *= -1
+        ball.change_y -= 1
+        arcade.draw_rectangle_outline(wall.x, wall.y, 30, 200, arcade.color.WHITE, 10) 
+       
 class Ball:
-
+    """Movement of the Ball"""
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -38,7 +55,7 @@ class Ball:
         self.size = 0
         self.color = None
 class Rectangle1:
-    
+    """Movement of the Player 1 Paddle"""
     def __init__(self):
         self.x = 0 
         self.y = 0
@@ -48,6 +65,7 @@ class Rectangle1:
         self.color = None
 
 class Rectangle2:
+    """Movement of the Player 2 Paddle"""
     def __init__(self):
         self.x = 0 
         self.y = 0
@@ -57,7 +75,7 @@ class Rectangle2:
         self.color = None
     
 def make_rectangle1():
-    
+    """Creates the Player 1 Paddle"""
     rectangle1 = Rectangle1()
 
     rectangle1.size = 14
@@ -70,8 +88,9 @@ def make_rectangle1():
     rectangle1.color = arcade.color.WHITE
 
     return rectangle1
+
 def make_rectangle2():
-    
+    """Creates the Player 2 Paddle"""
     rectangle2 = Rectangle2()
 
     rectangle2.size = 14
@@ -88,10 +107,12 @@ def make_rectangle2():
     
 
 def make_ball():
+    """Places the ball in the center and shoots it in a random direction"""
     global MOVEMENT_SPEED
     global Count_1
     global Count_2
     global new_ball
+    global speed_up
     ball = Ball()
 
     # Size of the ball
@@ -104,8 +125,8 @@ def make_ball():
 
     # Speed and direction of rectangle
     if Count_1 >= Count_2:
-        ball.change_x = (MOVEMENT_SPEED*100+1) / 100
-        ball.change_y = (MOVEMENT_SPEED*100+1) / 100
+        ball.change_x = (MOVEMENT_SPEED*100+1+speed_up) / 100
+        ball.change_y = (MOVEMENT_SPEED*100+1+speed_up) / 100
     elif Count_2 > Count_1:
         ball.change_x = (-MOVEMENT_SPEED*100+1) / 100
         ball.change_y = (-MOVEMENT_SPEED*100+1) / 100
