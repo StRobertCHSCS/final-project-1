@@ -245,20 +245,18 @@ class MyGame(arcade.Window):
             
 
                 for rectangle2 in self.rectangle2_list:
-                    if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 75 and ball.y > rectangle2.y - 75:
+                    if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 80 and ball.y > rectangle2.y - 80:
                     
                         ball.change_x *= -1
                         ball.change_y *= -1
                         ball.change_y -= 1
-                    if rectangle2.y >= 1260:
-                        rectangle2.y = 1260
-                    elif rectangle2.y <= 0:
-                        rectangle2.y = 0
+
+
 
 
   
                 for rectangle1 in self.rectangle1_list:
-                    if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 75 and ball.y > rectangle1.y - 75:
+                    if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 80 and ball.y > rectangle1.y - 80:
                     
                     
                         ball.change_x *= -1
@@ -361,11 +359,7 @@ def main():
     MyGame()
     arcade.run()
 
-    """
-    texture = arcade.load_texture("Images/background.png")
-    arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
-    arcade.set_background_color()
-    """
+
 
 if __name__ == "__main__":
     main()
