@@ -26,7 +26,9 @@ wallx = 640
 game_mode = 0
 
 
-def 
+def arcade_mode():
+    arcade.draw_rectangle_filled(640, 360, 20, 200, arcade.color.WHITE)
+    
 
 class Ball:
     """Movement of the Ball"""
@@ -54,6 +56,12 @@ class Rectangle2:
         self.y = 0
         self.change_x = 0 
         self.change_y = 0
+        self.size = 0
+        self.color = None
+class Wall:
+    def __init__(self):
+        self.x = 0 
+        self.y = 0
         self.size = 0
         self.color = None
     
@@ -86,6 +94,19 @@ def make_rectangle2():
     rectangle2.color = arcade.color.WHITE
 
     return rectangle2
+def make_wall():
+    """Creates the Player 2 Paddle"""
+    wall = Wall()
+
+    wall.size = 20
+
+    wall.x = 640
+    wall.y = 360
+
+
+    wall.color = arcade.color.WHITE
+
+    return wall
 
     
 
@@ -147,6 +168,10 @@ class MyGame(arcade.Window):
         rectangle2 = make_rectangle2()
         self.rectangle2_list.append(rectangle2)
 
+        self.wall_list = []
+        wall = make_wall()
+        self.wall_list.append(wall)
+
 
 
 
@@ -187,7 +212,8 @@ class MyGame(arcade.Window):
         
             rectangle2 = make_rectangle2()
         if game_mode ==2:
-            
+            for wall in self.wall_list:
+                arcade.draw_rectangle_filled(640, 360, 20, 200, arcade.color.WHITE)
         if game_mode == 3:
             end1_screen = arcade.load_texture("Images/Player_1_Victory.png")
             arcade.draw_texture_rectangle(end1_screen.width//2, end1_screen.height//2, end1_screen.width,end1_screen.height, end1_screen, 0)
@@ -278,7 +304,19 @@ class MyGame(arcade.Window):
                     if ball.x > rectangle1.x+5 and ball.y < rectangle1.y + 80 and ball.y > rectangle1.y - 80:
                         ball.change_x *= 1
                         ball.change_y *= 1
-                if game_mode == 2:
+            if game_mode == 2:
+                for ball in self.ball_list:
+                    for wall in self.wall_list:
+
+                        if ball.x < wall.x+10 and ball.x > wall.x - 10 and ball.y < wall.y + 77 and ball.y > wall.y - 77:
+                    
+                    
+                            ball.change_x *= -1
+                            ball.change_y *= -1
+                            ball.change_y += 1
+
+
+            
 
 
 
