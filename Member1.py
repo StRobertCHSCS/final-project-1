@@ -182,6 +182,8 @@ class MyGame(arcade.Window):
                 arcade.draw_rectangle_filled(rectangle2.x, rectangle2.y, rectangle2.size, 150,  rectangle2.color)
         
             rectangle2 = make_rectangle2()
+        if game_mode ==2:
+            fire_mode()
         if game_mode == 3:
             end1_screen = arcade.load_texture("Images/Player_1_Victory.png")
             arcade.draw_texture_rectangle(end1_screen.width//2, end1_screen.height//2, end1_screen.width,end1_screen.height, end1_screen, 0)
@@ -245,24 +247,30 @@ class MyGame(arcade.Window):
             
 
                 for rectangle2 in self.rectangle2_list:
-                    if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 80 and ball.y > rectangle2.y - 80:
+                    if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 77 and ball.y > rectangle2.y - 77:
                     
                         ball.change_x *= -1
                         ball.change_y *= -1
                         ball.change_y -= 1
+                    if ball.x > rectangle2.x-5 and ball.y < rectangle2.y + 80 and ball.y > rectangle2.y - 80:
+                        ball.change_x *= 1
+                        ball.change_y *= 1
 
 
 
 
   
                 for rectangle1 in self.rectangle1_list:
-                    if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 80 and ball.y > rectangle1.y - 80:
+                    if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 77 and ball.y > rectangle1.y - 77:
                     
                     
                         ball.change_x *= -1
 
                         ball.change_y *= -1
                         ball.change_y += 1
+                    if ball.x > rectangle1.x+5 and ball.y < rectangle1.y + 80 and ball.y > rectangle1.y - 80:
+                        ball.change_x *= 1
+                        ball.change_y *= 1
 
             
 
