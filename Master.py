@@ -1,4 +1,13 @@
+'''
+-------------------------------------------------------------------------------
+Name:		Retro_Ping_Pong.py
+Purpose:	To recreate Retro Ping Pong
 
+Author:	Tang. E, Chou. I
+
+Created:	date in 26/01/2020
+------------------------------------------------------------------------------
+'''
 
 import arcade
 import random
@@ -8,28 +17,19 @@ import random
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Retro Ping Pong"
-Count_1 = 0
-Count_2 = 0
-Collision = 1
-Collision2 = 0
-up_pressed = False
-down_pressed = False
-up_2pressed = False
-down_2pressed = False
 
-new_ball = False
-MOVEMENT_SPEED = 10
-
-
-arcade_mode = random.randrange(1, 5)
-game_mode = 0
-
-def fire_mode():
-    arcade.draw_rectangle_outline(640, 360, 500, 500, arcade.color.ORANGE, 10)
-
+Count_1 = 0  #Score for Player 1
+Count_2 = 0  #Score for Player 2
+up_pressed = False  #Allows player 1 to move paddle up
+down_pressed = False  #Allows player 1 to move paddle down
+up_2pressed = False  #Allows player 2 to move paddle up
+down_2pressed = False  #Allows player 2 to move paddle down
+new_ball = False  #When the ball is drawn
+MOVEMENT_SPEED = 10  #How fast the ball moves
+game_mode = 0  #Determines normal pong or action pong
 
 class Ball:
-
+    """Movement of the Ball"""
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -37,8 +37,9 @@ class Ball:
         self.change_y = 0
         self.size = 0
         self.color = None
+        
 class Rectangle1:
-    
+    """Movement of the Player 1 Paddle"""
     def __init__(self):
         self.x = 0 
         self.y = 0
@@ -48,6 +49,7 @@ class Rectangle1:
         self.color = None
 
 class Rectangle2:
+    """Movement of the Player 2 Paddle"""
     def __init__(self):
         self.x = 0 
         self.y = 0
@@ -55,9 +57,16 @@ class Rectangle2:
         self.change_y = 0
         self.size = 0
         self.color = None
+        
+class Wall:
+    def __init__(self):
+        self.x = 0 
+        self.y = 0
+        self.size = 0
+        self.color = None
     
 def make_rectangle1():
-    
+    """Creates the Player 1 Paddle"""
     rectangle1 = Rectangle1()
 
     rectangle1.size = 14
@@ -68,10 +77,11 @@ def make_rectangle1():
     rectangle1.change_y = 0
 
     rectangle1.color = arcade.color.WHITE
-
-    return rectangle1
-def make_rectangle2():
     
+    return rectangle1
+
+def make_rectangle2():
+    """Creates the Player 2 Paddle"""
     rectangle2 = Rectangle2()
 
     rectangle2.size = 14
@@ -85,13 +95,29 @@ def make_rectangle2():
 
     return rectangle2
 
+def make_wall():
+    """Creates the Player 2 Paddle"""
+    wall = Wall()
+
+    wall.size = 20
+
+    wall.x = 640
+    wall.y = 360
+
+
+    wall.color = arcade.color.WHITE
+
+    return wall
+
     
 
 def make_ball():
+    """Places the ball in the center and shoots it in a random direction"""
     global MOVEMENT_SPEED
     global Count_1
     global Count_2
     global new_ball
+
     ball = Ball()
 
     # Size of the ball
@@ -127,6 +153,7 @@ class MyGame(arcade.Window):
 
  
     def __init__(self):
+        """Creates the Background"""
         global new_ball
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         
@@ -142,6 +169,10 @@ class MyGame(arcade.Window):
         self.rectangle2_list = []
         rectangle2 = make_rectangle2()
         self.rectangle2_list.append(rectangle2)
+
+        self.wall_list = []
+        wall = make_wall()
+        self.wall_list.append(wall)
 
 
 
@@ -183,7 +214,8 @@ class MyGame(arcade.Window):
         
             rectangle2 = make_rectangle2()
         if game_mode ==2:
-            fire_mode()
+            for wall in self.wall_list:
+                arcade.draw_rectangle_filled(640, 360, 20, 200, arcade.color.WHITE)
         if game_mode == 3:
             end1_screen = arcade.load_texture("Images/Player_1_Victory.png")
             arcade.draw_texture_rectangle(end1_screen.width//2, end1_screen.height//2, end1_screen.width,end1_screen.height, end1_screen, 0)
@@ -213,11 +245,12 @@ class MyGame(arcade.Window):
 
 
 
-    def on_update(self, delta_time):
 
+    def on_update(self, delta_time):
         """ Movement and game logic """
-        global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode
-        if game_mode == 1 or game_mode == 2:
+        global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode, arcade_mode,
+
+        if game_mode == 1 or game_mode == 2 :
             for ball in self.ball_list:
 
                 ball.x += ball.change_x
@@ -247,7 +280,7 @@ class MyGame(arcade.Window):
             
 
                 for rectangle2 in self.rectangle2_list:
-                    if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 76 and ball.y > rectangle2.y - 76:
+                    if ball.x > rectangle2.x-10 and ball.y < rectangle2.y + 77 and ball.y > rectangle2.y - 77:
                     
                         ball.change_x *= -1
                         ball.change_y *= -1
@@ -255,13 +288,14 @@ class MyGame(arcade.Window):
                     if ball.x > rectangle2.x-5 and ball.y < rectangle2.y + 80 and ball.y > rectangle2.y - 80:
                         ball.change_x *= 1
                         ball.change_y *= 1
+                    
 
 
 
 
   
                 for rectangle1 in self.rectangle1_list:
-                    if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 76 and ball.y > rectangle1.y - 76:
+                    if ball.x < rectangle1.x+10 and ball.y < rectangle1.y + 77 and ball.y > rectangle1.y - 77:
                     
                     
                         ball.change_x *= -1
@@ -271,6 +305,21 @@ class MyGame(arcade.Window):
                     if ball.x > rectangle1.x+5 and ball.y < rectangle1.y + 80 and ball.y > rectangle1.y - 80:
                         ball.change_x *= 1
                         ball.change_y *= 1
+            if game_mode == 2:
+                for ball in self.ball_list:
+                    for wall in self.wall_list:
+
+                        if ball.x < wall.x+10 and ball.x > wall.x - 10 and ball.y < wall.y + 77 and ball.y > wall.y - 77:
+                    
+                    
+                            ball.change_x *= -1
+                            ball.change_y *= -1
+                            ball.change_y += 1
+
+
+            
+
+
 
             
 
@@ -293,6 +342,10 @@ class MyGame(arcade.Window):
     
                 elif up_2pressed == True:
                     rectangle1.y += 10
+       
+
+
+
 
             
 
@@ -304,7 +357,7 @@ class MyGame(arcade.Window):
 
 
     def on_key_press(self, key, modifiers):
-        """Called whenever a key is pressed. """
+        """Called whenever a key is pressed"""
         global up_pressed, down_pressed, up_2pressed, down_2pressed, game_mode, new_ball
         if key == arcade.key.UP:
             up_pressed = True
@@ -329,7 +382,7 @@ class MyGame(arcade.Window):
 
             
     def on_key_release(self, key, modifiers):
-        """Called when the user releases a key. """
+        """Called when the user releases a key"""
         global up_pressed, down_pressed, up_2pressed, down_2pressed, new_ball
         if key == arcade.key.UP:
             up_pressed = False
@@ -346,6 +399,7 @@ class MyGame(arcade.Window):
             game_mode = 1
         elif key == arcade.key.H:
             game_mode = 2
+            
     def on_mouse_press(self, x, y, button, modifiers):
         """
         Called whenever the mouse button is clicked.
