@@ -163,8 +163,8 @@ class MyGame(arcade.Window):
             arcade.draw_texture_rectangle(title.width//2, title.height//2, title.width,title.height, title, 0)
 
         if game_mode == 1 or game_mode == 2:
-            texture = arcade.load_texture("Images/background.png")
-            arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
+            ###texture = arcade.load_texture("Images/background.png")
+            #arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
         
             
             for ball in self.ball_list:
@@ -182,6 +182,12 @@ class MyGame(arcade.Window):
                 arcade.draw_rectangle_filled(rectangle2.x, rectangle2.y, rectangle2.size, 150,  rectangle2.color)
         
             rectangle2 = make_rectangle2()
+        if game_mode == 3:
+            end1_screen = arcade.load_texture("Images/Player_1_Victory.png")
+            arcade.draw_texture_rectangle(end1_screen.width//2, end1_screen.height//2, end1_screen.width,end1_screen.height, end1_screen, 0)
+        if game_mode == 4:
+            end2_screen = arcade.load_texture("Images/Player_2_Victory.png")
+            arcade.draw_texture_rectangle(end2_screen.width//2, end2_screen.height//2, end2_screen.width,end2_screen.height, end2_screen, 0)
 
 
         if game_mode == 1 or game_mode == 2:
@@ -190,6 +196,10 @@ class MyGame(arcade.Window):
             Player_2 = "{}" .format(Count_2)
             arcade.draw_text(Player_1, 590, 660, arcade.color.WHITE, 30)
             arcade.draw_text(Player_2, 690, 660, arcade.color.WHITE, 30)
+        if Count_1 == 7:
+            game_mode = 3
+        if Count_2 ==7:
+            game_mode = 4
 
 
 
