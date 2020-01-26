@@ -8,23 +8,16 @@ import random
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Retro Ping Pong"
-Count_1 = 0
-Count_2 = 0
 
-up_pressed = False
-down_pressed = False
-up_2pressed = False
-down_2pressed = False
-
-new_ball = False
-MOVEMENT_SPEED = 10
-
-
-game_mode = 0
-
-
-
-    
+Count_1 = 0 #Score for Player 1
+Count_2 = 0 #Score for Player 2
+up_pressed = False #Allows player 1 to move paddle up
+down_pressed = False #Allows player 1 to move paddle down
+up_2pressed = False #Allows player 2 to move paddle up
+down_2pressed = False #Allows player 2 to move paddle down
+new_ball = False #When the ball is drawn
+MOVEMENT_SPEED = 10 #How fast the ball moves
+game_mode = 0 #Determines normal pong or action pong
 
 class Ball:
     """Movement of the Ball"""
@@ -35,6 +28,7 @@ class Ball:
         self.change_y = 0
         self.size = 0
         self.color = None
+        
 class Rectangle1:
     """Movement of the Player 1 Paddle"""
     def __init__(self):
@@ -54,6 +48,7 @@ class Rectangle2:
         self.change_y = 0
         self.size = 0
         self.color = None
+        
 class Wall:
     def __init__(self):
         self.x = 0 
@@ -73,7 +68,7 @@ def make_rectangle1():
     rectangle1.change_y = 0
 
     rectangle1.color = arcade.color.WHITE
-
+    
     return rectangle1
 
 def make_rectangle2():
@@ -90,6 +85,7 @@ def make_rectangle2():
     rectangle2.color = arcade.color.WHITE
 
     return rectangle2
+
 def make_wall():
     """Creates the Player 2 Paddle"""
     wall = Wall()
