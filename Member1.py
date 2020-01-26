@@ -163,8 +163,8 @@ class MyGame(arcade.Window):
             arcade.draw_texture_rectangle(title.width//2, title.height//2, title.width,title.height, title, 0)
 
         if game_mode == 1 or game_mode == 2:
-            ###texture = arcade.load_texture("Images/background.png")
-            #arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
+            texture = arcade.load_texture("Images/background.png")
+            arcade.draw_texture_rectangle(texture.width//2, texture.height//2, texture.width,texture.height, texture, 0)
         
             
             for ball in self.ball_list:
@@ -214,7 +214,7 @@ class MyGame(arcade.Window):
     def on_update(self, delta_time):
 
         """ Movement and game logic """
-        global Count_1, Count_2,Collision1, Collision2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode
+        global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode
         if game_mode == 1 or game_mode == 2:
             for ball in self.ball_list:
 
@@ -276,24 +276,18 @@ class MyGame(arcade.Window):
             for rectangle2 in self.rectangle2_list:
 
                 if up_pressed == True:
-                    rectangle2.y += 5
-                elif rectangle2.y >= 1260:
-                    up_pressed = False
+                    rectangle2.y += 10
 
-                if down_pressed == True:
-                    rectangle2.y -= 5
-                elif rectangle2.y <= 0:
-                    down_pressed == False
+                elif down_pressed == True:
+                    rectangle2.y -= 10
+
             for rectangle1 in self.rectangle1_list:
                 if down_2pressed == True:
-                    rectangle1.y -= 5
-                elif rectangle1.y <= 0:
-                    down_2pressed = False
+                    rectangle1.y -= 10
     
-                if up_2pressed == True:
-                    rectangle1.y += 5
-                elif rectangle1.y >= 1260:
-                    up_2pressed = False
+                elif up_2pressed == True:
+                    rectangle1.y += 10
+
             
 
 
@@ -350,8 +344,9 @@ class MyGame(arcade.Window):
         """
         Called whenever the mouse button is clicked.
         """
-        ball = make_ball()
-        self.ball_list.append(ball)
+        if len(self.ball_list) == 0:
+            ball = make_ball()
+            self.ball_list.append(ball)
         
         
 
