@@ -10,24 +10,20 @@ SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Retro Ping Pong"
 Count_1 = 0
 Count_2 = 0
-Collision = 1
-Collision2 = 0
+
 up_pressed = False
 down_pressed = False
 up_2pressed = False
 down_2pressed = False
-speed_up1 = 1
-speed_up2 = 1
+
 new_ball = False
 MOVEMENT_SPEED = 10
-wally = random.randrange(120,600)
-wallx = 640
+
 
 game_mode = 0
 
 
-def arcade_mode():
-    arcade.draw_rectangle_filled(640, 360, 20, 200, arcade.color.WHITE)
+
     
 
 class Ball:
@@ -116,7 +112,7 @@ def make_ball():
     global Count_1
     global Count_2
     global new_ball
-    global speed_up
+
     ball = Ball()
 
     # Size of the ball
@@ -247,7 +243,7 @@ class MyGame(arcade.Window):
     def on_update(self, delta_time):
 
         """ Movement and game logic """
-        global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode, arcade_mode, speed_up1, speed_up2
+        global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode, arcade_mode,
 
         if game_mode == 1 or game_mode == 2 :
             for ball in self.ball_list:
