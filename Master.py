@@ -18,15 +18,24 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Retro Ping Pong"
 
-Count_1 = 0  #Score for Player 1
-Count_2 = 0  #Score for Player 2
-up_pressed = False  #Allows player 1 to move paddle up
-down_pressed = False  #Allows player 1 to move paddle down
-up_2pressed = False  #Allows player 2 to move paddle up
-down_2pressed = False  #Allows player 2 to move paddle down
-new_ball = False  #When the ball is drawn
-MOVEMENT_SPEED = 10  #How fast the ball moves
-game_mode = 0  #Determines normal pong or action pong
+#Score for Player 1
+Count_1 = 0 
+#Score for Player 2
+Count_2 = 0  
+#Allows player 1 to move paddle up
+up_pressed = False 
+ #Allows player 1 to move paddle down
+down_pressed = False 
+#Allows player 2 to move paddle up
+up_2pressed = False 
+#Allows player 2 to move paddle down
+down_2pressed = False 
+#When the ball is drawn
+new_ball = False 
+#How fast the ball moves
+MOVEMENT_SPEED = 10  
+#Determines normal pong or action pong
+game_mode = 0  
 
 class Ball:
     """Movement of the Ball"""
