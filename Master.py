@@ -125,7 +125,7 @@ def make_ball():
     global MOVEMENT_SPEED
     global Count_1
     global Count_2
-    global new_ball
+    global new_ball, game_mode
 
     ball = Ball()
 
@@ -137,13 +137,21 @@ def make_ball():
     ball.x = 640
     ball.y = 360
 
+
     # Speed and direction of rectangle
-    if Count_1 >= Count_2:
+    if game_mode == 1:
+        if Count_1 >= Count_2:
+            ball.change_x = (MOVEMENT_SPEED*100+1) / 100
+            ball.change_y = (MOVEMENT_SPEED*100+1) / 100
+        elif Count_2 > Count_1:
+            ball.change_x = (-MOVEMENT_SPEED*100+1) / 100
+            ball.change_y = (-MOVEMENT_SPEED*100+1) / 100
+    if game_mode == 2:
         ball.change_x = (MOVEMENT_SPEED*100+1) / 100
         ball.change_y = (MOVEMENT_SPEED*100+1) / 100
-    elif Count_2 > Count_1:
-        ball.change_x = (-MOVEMENT_SPEED*100+1) / 100
-        ball.change_y = (-MOVEMENT_SPEED*100+1) / 100
+
+
+
 
 
     # Color
@@ -250,14 +258,20 @@ class MyGame(arcade.Window):
 
 
 
-
+    def on_mouse_press(self, x, y, button, modifiers):
+        """
+        Called whenever the mouse button is clicked.
+        """
+        if len(self.ball_list) == 0:
+            ball = make_ball()
+            self.ball_list.append(ball)
 
 
 
 
     def on_update(self, delta_time):
         """ Movement and game logic """
-        global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode, arcade_mode,
+        global Count_1, Count_2,  MOVEMENT_SPEED, on_draw,up_2pressed, up_pressed, down_pressed, down_2pressed, game_mode, arcade_mode
 
         if game_mode == 1 or game_mode == 2 :
             for ball in self.ball_list:
@@ -324,6 +338,18 @@ class MyGame(arcade.Window):
                             ball.change_x *= -1
                             ball.change_y *= -1
                             ball.change_y += 1
+                        if ball.x >= 1300 and Count_1 <= 6:
+                            self.ball_list.pop(0)
+                            ball.x = 640
+                            ball.y = 360
+                            Count_1 += 1
+                
+
+                        if ball.x <= -20 and Count_2 <= 6:
+                            self.ball_list.pop(0)
+                            ball.x = 640
+                            ball.y = 360
+                            Count_2 += 1
 
 
             
@@ -409,13 +435,7 @@ class MyGame(arcade.Window):
         elif key == arcade.key.H:
             game_mode = 2
             
-    def on_mouse_press(self, x, y, button, modifiers):
-        """
-        Called whenever the mouse button is clicked.
-        """
-        if len(self.ball_list) == 0:
-            ball = make_ball()
-            self.ball_list.append(ball)
+
         
         
 
